@@ -2,23 +2,28 @@
 
 # Install softwares in a new machine
 
-DEPLOYHOST=~/deployhost
-
-softwares=("git" "cmake" "python-devel" )
-for soft in ${softwares[*]}
-do
-    echo $soft
-    exist=`rpm -qa ${soft}`
-    echo $exist
-    if [ "" = "$exist" ]; then
-        # $exist is empty
-        yum install $soft -y
-    fi
-done
+#DEPLOYHOST=~/deployhost
+#DEPLOYHOST=`pwd`/deployhost
+DEPLOYHOST=`pwd`
 
 if [ ! -d $DEPLOYHOST ]; then
     git clone https://github.com/liberalman/deployhost.git $DEPLOYHOST
 fi
+
+function install_softwares()
+{
+    softwares=("git" "cmake" "python-devel" )
+    for soft in ${softwares[*]}
+    do
+        echo $soft
+        exist=`rpm -qa ${soft}`
+        echo $exist
+        if [ "" = "$exist" ]; then
+            # $exist is empty
+            yum install $soft -y
+        fi
+    done
+}
 
 function vim()
 {
