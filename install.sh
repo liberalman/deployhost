@@ -12,7 +12,7 @@ fi
 
 function install_softwares()
 {
-    softwares=("git" "cmake" "python-devel" )
+    softwares=("git" "cmake" "python-devel" "jq" )
     for soft in ${softwares[*]}
     do
         echo $soft
