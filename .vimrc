@@ -57,7 +57,7 @@ filetype plugin indent on    " required
 
 
 set nu " set line number
-set cindent " set indent of c style
+"set cindent " set indent of c style
 set ts=4 " set tap of 4 spaces
 set expandtab " 
 "set autoindent
