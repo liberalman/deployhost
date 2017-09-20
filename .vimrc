@@ -61,6 +61,7 @@ set cindent " set indent of c style
 set ts=4 " set tap of 4 spaces
 set expandtab " 
 set autoindent
+set shiftwidth=4 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
 
