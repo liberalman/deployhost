@@ -9,7 +9,7 @@ call vundle#begin()
 "
 " " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "
 " " The following are examples of different formats supported.
 " " Keep Plugin commands between vundle#begin/end.
@@ -56,12 +56,12 @@ filetype plugin indent on    " required
 " ================ setting ycm end ================
 
 
-set nu " set line number
-set cindent " set indent of c style
+"set nu " set line number
+"set cindent " set indent of c style
 set ts=4 " set tap of 4 spaces
 set expandtab " 
-set autoindent
-set shiftwidth=4 " indent space num
+"set autoindent
+"set shiftwidth=4 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
 
