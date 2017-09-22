@@ -56,12 +56,13 @@ filetype plugin indent on    " required
 " ================ setting ycm end ================
 
 
-"set nu " set line number
-"set cindent " set indent of c style
+set nu " set line number
+set cindent " set indent of c style
 set ts=4 " set tap of 4 spaces
 set expandtab " 
-"set autoindent
-"set shiftwidth=4 " indent space num
+set autoindent
+set shiftwidth=4 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
+set pastetoggle=<F9>
 
