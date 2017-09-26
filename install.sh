@@ -5,22 +5,40 @@
 #DEPLOYHOST=~/deployhost
 #DEPLOYHOST=`pwd`/deployhost
 DEPLOYHOST=`pwd`
+OS=centos
+CMD="yum"
+CMD_PKG="rpm -qa"
 
-if [ ! -d $DEPLOYHOST ]; then
-    git clone https://github.com/liberalman/deployhost.git $DEPLOYHOST
-fi
+function check_env()
+{
+    if [ ! -d $DEPLOYHOST ]; then
+        git clone https://github.com/liberalman/deployhost.git $DEPLOYHOST
+        cd $DEPLOYHOST
+    fi
+}
+
+function check_OS()
+{
+    ubuntu=`uname -a|grep Ubuntu`
+    if [ "$ubuntu" != "" ];then
+        OS=ubuntu
+        if [ "$OS" == "ubuntu" ];then
+            CMD="apt-get"
+            CMD_PKG="dpkg --get-selections | grep"
+        fi
+        cat ./ubuntu/sources.list >> /etc/apt/sources.list
+    fi
+}
 
 function install_softwares()
 {
-    softwares=("git" "cmake" "python-devel" "jq" )
+    softwares=("git" "cmake" "python-devel" "jq" "openssh-server")
     for soft in ${softwares[*]}
     do
-        echo $soft
-        exist=`rpm -qa ${soft}`
-        echo $exist
+        exist=`$CMD_PKG ${soft}`
         if [ "" = "$exist" ]; then
             # $exist is empty
-            yum install $soft -y
+            `$cmd install $soft -y`
         fi
     done
 }
@@ -49,6 +67,8 @@ function vim()
     fi
 }
 
-
+check_OS
+install_softwares
+check_env
 vim
 
