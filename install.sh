@@ -118,10 +118,10 @@ function success()
 
 function Usage()
 {
-    echo -e "$0 [-oh] string\n"
-    echo -e "\t-a|--hostname <hostname>.\tset hostname and terminal name.\n"
-    echo -e "\t-h|--help.\n"
-    echo -e "\t-i|--initial.\t\t\tset up softwares and configure your vim,openssh... when you get a new computer.\n"
+    echo -e "$0 [-ahi] string"
+    echo -e "\t-a|--hostname <hostname>.\tset hostname and terminal name."
+    echo -e "\t-h|--help."
+    echo -e "\t-i|--initial.\t\t\tset up softwares and configure your vim,openssh... when you get a new computer."
 }
 
 TEMP=`getopt -o a:hic:: --long hostname,help,initial:,c-long:: \
