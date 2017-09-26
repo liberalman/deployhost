@@ -34,6 +34,19 @@ function check_OS()
     fi
 }
 
+function set_hostname()
+{
+    hostname=$1
+    if [ "" != "$hostname" ];then
+        echo $hostname > /etc/hostname
+        sed -i "s/127.0.1.1.*/127.0.1.1        ${hostname}/g" /etc/hosts
+    fi
+    cat /etc/hostname
+    echo -e "\n"
+    cat /etc/hosts
+    #echo -e "\n192.168.56.101  host-1\n192.168.56.102  host-2\n192.168.56.103  host-3" >> /etc/hosts
+}
+
 function install_softwares()
 {
     softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server")
@@ -75,7 +88,73 @@ function vim()
     fi
 }
 
-check_OS
-install_softwares
-check_env
-vim
+
+function init_computer()
+{
+    check_OS
+    install_softwares
+    check_env
+    vim
+    success
+}
+
+function success()
+{
+    echo -e "\033[32m"
+    b=`echo -e "\033[42;32m[]\033[0m  "`
+    echo  Installing........
+    echo     --------------------------------------------------------------
+    for ((i=0;$i<=60;i+=2))
+    do
+          printf $b
+          sleep 0.1
+          b=`echo -e "\033[42;32m[]\033[0m  "`$b
+    done
+    echo -e "\033[32m"
+    echo     --------------------------------------------------------------
+    echo "Complete!"
+    echo -e "\033[0m"
+}
+
+function Usage()
+{
+    echo -e "$0 [-oh] string\n"
+    echo -e "\t-a|--hostname hostname. set hostname and terminal name.\n"
+    echo -e "\t-i|--initial. set up softwares and configure your vim,openssh... when you get a new computer.\n"
+}
+
+TEMP=`getopt -o a:hic:: --long hostname,help,initial:,c-long:: \
+    -n 'example.bash' -- "$@"`
+if [ $? != 0 ]; then
+    echo "Terminating..." >&2 ;
+    exit 1 ;
+fi
+# Note the quotes around `$TEMP': they are essential!
+# set 会重新排列参数的顺序，也就是改变$1,$2...$n的值，这些值在getopt中重新排列过了
+eval set -- "$TEMP"
+# 经过getopt的处理，下面处理具体选项。
+while true ; do
+    case "$1" in
+        -h|--help)
+            echo "Option help" ;
+            Usage
+            shift ;;
+        -i|--initial)
+            init_computer
+            shift ;;
+        -a|--hostname)
+            set_hostname $2
+            shift 2 ;;
+        -c|--c-long)
+                # c has an optional argument. As we are in quoted mode,
+                # an empty parameter will be generated if its optional
+                # argument is not found.
+                case "$2" in
+                        "") echo "Option c, no argument"; shift 2 ;;
+                        *) echo "Option c, argument \`$2'" ; shift 2 ;;
+                esac ;;
+        --) shift ; break ;;
+        *) echo "Internal error!" ; exit 1 ;;
+    esac
+done
+
