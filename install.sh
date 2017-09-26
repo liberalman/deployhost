@@ -2,9 +2,7 @@
 
 # Install softwares in a new machine
 
-#DEPLOYHOST=~/deployhost
-#DEPLOYHOST=`pwd`/deployhost
-DEPLOYHOST=`pwd`
+DEPLOYHOST=~/deployhost
 OS=centos
 CMD="yum"
 CMD_PKG="rpm -qa"
@@ -24,22 +22,26 @@ function check_OS()
         OS=ubuntu
         if [ "$OS" == "ubuntu" ];then
             CMD="apt-get"
-            CMD_PKG="dpkg --get-selections | grep"
+            CMD_PKG="dpkg --get-selections | grep "
+            aliyun=`cat /etc/apt/sources.list | grep "mirrors.aliyun.com"`
+            if [ "$aliyun" == "" ];then
+                cat ./ubuntu/sources.list >> /etc/apt/sources.list
+                apt-get update
+            fi
         fi
-        cat ./ubuntu/sources.list >> /etc/apt/sources.list
     fi
 }
 
 function install_softwares()
 {
-    softwares=("git" "cmake" "python-devel" "jq" "openssh-server")
+    softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server")
     for soft in ${softwares[*]}
     do
-        exist=`$CMD_PKG ${soft}`
-        if [ "" = "$exist" ]; then
+        #exist=`${CMD_PKG} ${soft}`
+        #if [ "" = "$exist" ]; then
             # $exist is empty
-            `$cmd install $soft -y`
-        fi
+            $CMD install $soft -y
+        #fi
     done
 }
 
@@ -71,4 +73,3 @@ check_OS
 install_softwares
 check_env
 vim
-
