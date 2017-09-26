@@ -65,4 +65,4 @@ set shiftwidth=4 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
 set pastetoggle=<F9>
-
+set encoding=utf-8
