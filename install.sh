@@ -11,6 +11,8 @@ function check_env()
 {
     if [ ! -d $DEPLOYHOST ]; then
         git clone https://github.com/liberalman/deployhost.git $DEPLOYHOST
+        git config --global user.email "zscchina@163.com"
+        git config --global user.name "liberalman"
         cd $DEPLOYHOST
     fi
 }
@@ -43,6 +45,8 @@ function install_softwares()
             $CMD install $soft -y
         #fi
     done
+    service ssh start
+    echo "service ssh start" >> /etc/rc.local
 }
 
 function vim()
