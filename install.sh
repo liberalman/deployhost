@@ -47,6 +47,8 @@ function install_softwares()
     done
     service ssh start
     echo "service ssh start" >> /etc/rc.local
+    # vim /etc/ssh/sshd_config
+    # set "PermitRootLogin yes"
 }
 
 function vim()
