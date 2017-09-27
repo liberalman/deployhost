@@ -98,6 +98,15 @@ function init_computer()
     success
 }
 
+function restart_network()
+{
+   ifconfig enp0s3 down
+   ifconfig enp0s8 down
+
+   ifconfig enp0s3 up
+   ifconfig enp0s8 up
+}
+
 function success()
 {
     echo -e "\033[32m"
@@ -122,9 +131,10 @@ function Usage()
     echo -e "\t-a|--hostname <hostname>.\tset hostname and terminal name."
     echo -e "\t-h|--help."
     echo -e "\t-i|--initial.\t\t\tset up softwares and configure your vim,openssh... when you get a new computer."
+    echo -e "\t-r|--renetwork.\t\t\trestart network, for vBox to connect outer line."
 }
 
-TEMP=`getopt -o a:hic:: --long hostname,help,initial:,c-long:: \
+TEMP=`getopt -o a:hirc:: --long hostname,help,initial,renetwork:,c-long:: \
     -n 'example.bash' -- "$@"`
 if [ $? != 0 ]; then
     echo "Terminating..." >&2 ;
@@ -136,13 +146,6 @@ eval set -- "$TEMP"
 # 经过getopt的处理，下面处理具体选项。
 while true ; do
     case "$1" in
-        -h|--help)
-            echo "Option help" ;
-            Usage
-            shift ;;
-        -i|--initial)
-            init_computer
-            shift ;;
         -a|--hostname)
             set_hostname $2
             shift 2 ;;
@@ -154,6 +157,15 @@ while true ; do
                         "") echo "Option c, no argument"; shift 2 ;;
                         *) echo "Option c, argument \`$2'" ; shift 2 ;;
                 esac ;;
+        -h|--help)
+            Usage
+            shift ;;
+        -i|--initial)
+            init_computer
+            shift ;;
+        -r|--renetwork)
+            restart_network
+            shift ;;
         --) shift ; break ;;
         *) echo "Internal error!" ; exit 1 ;;
     esac
