@@ -134,6 +134,11 @@ function Usage()
     echo -e "\t-r|--renetwork.\t\t\trestart network, for vBox to connect outer line."
 }
 
+if [ $# -lt 1 ]; then
+    Usage
+    exit -1
+fi
+
 TEMP=`getopt -o a:hirc:: --long hostname,help,initial,renetwork:,c-long:: \
     -n 'example.bash' -- "$@"`
 if [ $? != 0 ]; then
