@@ -19,17 +19,15 @@ function check_env()
 
 function check_OS()
 {
-    ubuntu=`uname -a|grep Ubuntu`
-    if [ "$ubuntu" != "" ];then
-        OS=ubuntu
-        if [ "$OS" == "ubuntu" ];then
-            CMD="apt-get"
-            CMD_PKG="dpkg --get-selections | grep "
-            aliyun=`cat /etc/apt/sources.list | grep "mirrors.aliyun.com"`
-            if [ "$aliyun" == "" ];then
-                cat ./ubuntu/sources.list >> /etc/apt/sources.list
-                apt-get update
-            fi
+    #ubuntu=`uname -a|grep Ubuntu`
+    #if [ "$ubuntu" != "" ];then
+    if [ "$OS" == "ubuntu" ];then
+        CMD="apt-get"
+        CMD_PKG="dpkg --get-selections | grep "
+        aliyun=`cat /etc/apt/sources.list | grep "mirrors.aliyun.com"`
+        if [ "$aliyun" == "" ];then
+            cat ./ubuntu/sources.list >> /etc/apt/sources.list
+            apt-get update
         fi
     fi
 }
@@ -49,7 +47,7 @@ function set_hostname()
 
 function install_softwares()
 {
-    softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server")
+    softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server" "docker" "docker-compose")
     for soft in ${softwares[*]}
     do
         #exist=`${CMD_PKG} ${soft}`
@@ -60,14 +58,13 @@ function install_softwares()
     done
     if [ "$OS" == "ubuntu" ]; then
         apt-get install openjdk-8-jdk -y
+        service ssh start
+        echo "service ssh start" >> /etc/rc.local
+        # vim /etc/ssh/sshd_config
+        # set "PermitRootLogin yes"
     else
         yum install java-1.8.0-openjdk -y
     fi
-    
-    service ssh start
-    echo "service ssh start" >> /etc/rc.local
-    # vim /etc/ssh/sshd_config
-    # set "PermitRootLogin yes"
 }
 
 function vim()
