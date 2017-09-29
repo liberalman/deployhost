@@ -13,6 +13,7 @@ function check_env()
         git clone https://github.com/liberalman/deployhost.git $DEPLOYHOST
         git config --global user.email "zscchina@163.com"
         git config --global user.name "liberalman"
+        git config --global push.default simple
         cd $DEPLOYHOST
     fi
 }
