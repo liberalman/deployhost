@@ -58,6 +58,12 @@ function install_softwares()
             $CMD install $soft -y
         #fi
     done
+    if [ "$OS" == "ubuntu" ]; then
+        apt-get install openjdk-8-jdk -y
+    else
+        yum install java-1.8.0-openjdk -y
+    fi
+    
     service ssh start
     echo "service ssh start" >> /etc/rc.local
     # vim /etc/ssh/sshd_config
