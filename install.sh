@@ -91,6 +91,14 @@ function vim()
 
 function init_computer()
 {
+    if [ "$1" == "ubuntu" ]; then
+        OS="ubuntu";
+    elif [ "$1" == "centos" ]; then
+        OS="centos"
+    else
+        echo "init must be ubuntu or centos"
+        exit -1
+    fi
     check_OS
     install_softwares
     check_env
@@ -127,11 +135,11 @@ function success()
 
 function Usage()
 {
-    echo -e "$0 [-ahi] string"
-    echo -e "\t-a|--hostname <hostname>.\tset hostname and terminal name."
-    echo -e "\t-h|--help."
-    echo -e "\t-i|--initial.\t\t\tset up softwares and configure your vim,openssh... when you get a new computer."
-    echo -e "\t-r|--renetwork.\t\t\trestart network, for vBox to connect outer line."
+    echo -e "$0 [-ahir] string"
+    echo -e "        -a|--hostname <hostname>.      set hostname and terminal name."
+    echo -e "        -h|--help."
+    echo -e "        -i|--initial <ubuntu|centos>.  set up softwares and configure your vim,openssh... when you get a new computer."
+    echo -e "        -r|--renetwork.                restart network, for vBox to connect outer line."
 }
 
 if [ $# -lt 1 ]; then
@@ -139,7 +147,7 @@ if [ $# -lt 1 ]; then
     exit -1
 fi
 
-TEMP=`getopt -o a:hirc:: --long hostname,help,initial,renetwork:,c-long:: \
+TEMP=`getopt -o a:hi:rc:: --long hostname,help,initial,renetwork:,c-long:: \
     -n 'example.bash' -- "$@"`
 if [ $? != 0 ]; then
     echo "Terminating..." >&2 ;
@@ -166,8 +174,8 @@ while true ; do
             Usage
             shift ;;
         -i|--initial)
-            init_computer
-            shift ;;
+            init_computer $2
+            shift 2 ;;
         -r|--renetwork)
             restart_network
             shift ;;
