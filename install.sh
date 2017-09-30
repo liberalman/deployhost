@@ -48,7 +48,7 @@ function set_hostname()
 
 function install_softwares()
 {
-    softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server" "docker" "docker-compose")
+    softwares=("vim" "git" "cmake" "python-devel" "jq" "openssh-server" "docker" "python-setuptools" "telnet" "python-pip")
     for soft in ${softwares[*]}
     do
         #exist=`${CMD_PKG} ${soft}`
