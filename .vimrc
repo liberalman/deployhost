@@ -56,7 +56,7 @@ filetype plugin indent on    " required
 " ================ setting ycm end ================
 
 
-set nu " set line number
+"set nu " set line number
 set cindent " set indent of c style
 set ts=4 " set tap of 4 spaces
 set expandtab " 
@@ -66,3 +66,11 @@ set cursorline " highlight current line
 set hlsearch " highlight search text
 set pastetoggle=<F9>
 set encoding=utf-8
+syntax on
+
+if &term=="xterm"
+set t_Co=8
+set t_Sb=^[[4%dm
+set t_Sf=^[[3%dm
+endif
+
