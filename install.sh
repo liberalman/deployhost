@@ -90,6 +90,7 @@ function vim()
         ln -s $DEPLOYHOST/.vimrc ~/.vimrc
         echo "link ~/.vimrc success"
     fi
+    echo "export EDITOR=vim" >> ~/.bashrc
 }
 
 
