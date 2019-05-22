@@ -58,13 +58,13 @@ filetype plugin indent on    " required
 
 "set nu " set line number
 set cindent " set indent of c style
-set ts=4 " set tap of 4 spaces
+set ts=2 " set tap of 4 spaces
 set expandtab " 
 "set autoindent
-set shiftwidth=4 " indent space num
+set shiftwidth=2 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
-set pastetoggle=<F9>
+"set pastetoggle=<F9>
 set encoding=utf-8
 syntax on
 
