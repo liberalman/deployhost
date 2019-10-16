@@ -64,7 +64,8 @@ set expandtab "
 set shiftwidth=2 " indent space num
 set cursorline " highlight current line
 set hlsearch " highlight search text
-"set pastetoggle=<F9>
+set paste
+set pastetoggle=<F9>
 set encoding=utf-8
 syntax on
 
